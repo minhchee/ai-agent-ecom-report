@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 如何影响电商公司 | 行业报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #fafbfc;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --accent-1: #4f46e5;
+    --accent-1-light: #eef2ff;
+    --accent-2: #f59e0b;
+    --accent-2-light: #fffbeb;
+    --accent-3: #06b6d4;
+    --accent-3-light: #ecfeff;
+    --accent-4: #ef4444;
+    --accent-4-light: #fef2f2;
+    --border: #e5e7eb;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,.08);
+    --max-width: 820px;
+    --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header / Hero ── */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4f46e5 60%, #06b6d4 100%);
+    padding: 0;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('report-images/cover.png') center/cover no-repeat;
+    opacity: .95;
+    z-index: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(30,27,75,.82) 0%, rgba(79,70,229,.55) 60%, rgba(6,182,212,.35) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 80px 24px;
+    color: #fff;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,.9);
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(0,0,0,.15);
+  }
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: rgba(255,255,255,.8);
+    max-width: 640px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-stats a {
+    color: #fff;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .hero-stats a:hover { background: rgba(255,255,255,.22); }
+
+  /* ── Navigation ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .sticky-nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 52px;
+    overflow-x: auto;
+    gap: 8px;
+  }
+  .sticky-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all .15s;
+  }
+  .sticky-nav a:hover { color: var(--accent-1); background: var(--accent-1-light); }
+  .sticky-nav .nav-title {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .content {
+    padding: 48px 0;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 56px;
+    scroll-margin-top: 68px;
+  }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .section-icon.brand { background: var(--accent-1-light); }
+  .section-icon.ecom { background: var(--accent-2-light); }
+  .section-icon.supply { background: var(--accent-3-light); }
+  .section-icon.prod { background: var(--accent-4-light); }
+  .section-icon.action { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+
+  .section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .section h2 .highlight {
+    display: inline-block;
+    padding: 0 4px;
+  }
+  .section h2 .highlight.purple { color: var(--accent-1); }
+  .section h2 .highlight.amber { color: var(--accent-2); }
+  .section h2 .highlight.cyan { color: var(--accent-3); }
+  .section h2 .highlight.red { color: var(--accent-4); }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 24px;
+    padding-left: 52px;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+  .card:last-child { margin-bottom: 0; }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .card p, .card li {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card ul li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 15px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    opacity: .5;
+  }
+
+  .card-insight {
+    border-left: 4px solid var(--accent-1);
+    background: var(--accent-1-light);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 24px;
+    margin-top: 16px;
+  }
+  .card-insight p {
+    color: var(--text);
+    font-size: 15px;
+  }
+  .card-insight strong {
+    color: var(--accent-1);
+  }
+
+  /* ── Data Highlight Cards ── */
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .data-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform .15s;
+  }
+  .data-card:hover { transform: translateY(-2px); }
+  .data-card .number {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .data-card .number.purple { color: var(--accent-1); }
+  .data-card .number.amber { color: var(--accent-2); }
+  .data-card .number.cyan { color: var(--accent-3); }
+  .data-card .number.red { color: var(--accent-4); }
+  .data-card .number.green { color: #10b981; }
+  .data-card .label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .data-card .source {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 8px;
+  }
+
+  /* ── Image ── */
+  .report-image {
+    margin: 20px 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .report-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .report-image .caption {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 500;
+  }
+
+  /* ── Action Cards ── */
+  .action-list { counter-reset: action; }
+  .action-item {
+    counter-increment: action;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .action-number {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 2px;
+  }
+  .action-item:nth-child(1) .action-number { background: var(--accent-1-light); color: var(--accent-1); }
+  .action-item:nth-child(2) .action-number { background: var(--accent-2-light); color: var(--accent-2); }
+  .action-item:nth-child(3) .action-number { background: var(--accent-3-light); color: var(--accent-3); }
+  .action-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .action-item p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Sources ── */
+  .sources-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin-top: 48px;
+  }
+  .sources-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .source-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .source-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 50px;
+    background: var(--accent-1-light);
+    color: var(--accent-1);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(79,70,229,.12);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: #9ca3af;
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .footer a { color: var(--accent-1); text-decoration: none; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .card { padding: 20px 16px; }
+    .data-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-content { padding: 60px 20px; }
+    .sticky-nav-inner { gap: 4px; }
+    .sticky-nav a { font-size: 13px; padding: 6px 10px; }
+    .action-item { flex-direction: column; gap: 12px; }
+    .section-subtitle { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📊 2026 行业趋势报告</div>
+    <h1>AI Agent 正在重构电商</h1>
+    <p>从品牌到电商运营、供应链、生产全链路 —— AI Agent 如何成为电商公司的「第七个部门」</p>
+    <div class="hero-stats">
+      <a href="#brand">🏷️ 品牌</a>
+      <a href="#ecommerce">🛒 电商运营</a>
+      <a href="#supplychain">📦 供应链</a>
+      <a href="#production">🏭 生产</a>
+      <a href="#actions">✅ 行动建议</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <span class="nav-title">AI Agent · 电商报告</span>
+    <a href="#brand">品牌</a>
+    <a href="#ecommerce">电商运营</a>
+    <a href="#supplychain">供应链</a>
+    <a href="#production">生产</a>
+    <a href="#actions">行动建议</a>
+    <a href="#sources">资料来源</a>
+  </div>
+</nav>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="container content">
+
+  <!-- ─── 楔子 ─── -->
+  <div class="card" style="border-left: 4px solid var(--accent-1); margin-bottom: 40px;">
+    <p style="font-size:15px; line-height:1.8; color:var(--text-secondary);">
+      你以为 AI 只是写写文案、做做图？<br><br>
+      <strong style="color:var(--text);">错了。</strong> 2026 年，AI Agent 正在从<strong style="color:var(--accent-1);">「工具」变成「员工」</strong>——7×24 小时替品牌跑客服、搞研发、管供应链。电商的底层逻辑，正在被重写。<br><br>
+      这篇用 4 个维度，把「AI Agent 怎么影响电商」一次讲透。
+    </p>
+  </div>
+
+  <!-- ─── SECTION 1: Brand ─── -->
+  <section id="brand" class="section">
+    <div class="section-header">
+      <div class="section-icon brand">🏷️</div>
+      <h2>一、品牌维度：你的核心资产，从<wbr><span class="highlight purple">「关键词」变成「意图」</span></h2>
+    </div>
+    <div class="section-subtitle">品牌竞争，从抢关键词流量转向抢占用户意图场景</div>
+
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="number purple">88%</div>
+        <div class="label">营销者已在至少一项业务中使用 AI</div>
+        <div class="source">McKinsey Global AI Survey 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number amber">24/7</div>
+        <div class="label">AI Agent 团队覆盖客服/研发/营销全链路</div>
+        <div class="source">亿邦动力 / 新浪财经 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number green">AEO</div>
+        <div class="label">答案引擎优化成品牌新必修课，否则 AI 直接推竞品</div>
+        <div class="source">TMO Group 2026</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>核心变化：从关键词到意图资产</h3>
+      <ul>
+        <li>天猫总裁家洛在 2026 TOP TALK 提出为品牌建设 AI 经营能力；「生意管家」升级「龙虾版」，为品牌建立覆盖客服/研发/营销的全链路 7×24 小时 Agent 团队</li>
+        <li>核心资产从「关键词」转向<strong>「意图资产」</strong>——能精准定义品牌在不同意图场景下解决方案的商家将占先机</li>
+        <li>AEO（答案引擎优化）成新要求：需 JSON-LD product schema、结构化 product feed、品牌知识库，否则 AI 在回答用户问题时直接推荐竞品</li>
+      </ul>
+      <div class="card-insight">
+        <p>💡 <strong>大白话解读：</strong>以前你花钱买「连衣裙」这个关键词；现在用户直接问 AI：「我要参加婚礼穿什么？」AI 帮你推荐。如果你的品牌没有结构化数据喂给 AI，它根本「想不起你」，直接推竞品。<br>👉 这就是 <strong>AEO——答案引擎优化</strong>，2026 品牌的新必修课。</p>
+      </div>
+    </div>
+
+    <div class="report-image">
+      <img src="report-images/brand.png" alt="品牌 × 意图资产" loading="lazy">
+      <div class="caption">🎯 品牌维度配图：关键词→意图资产的范式转变</div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: E-commerce ─── -->
+  <section id="ecommerce" class="section">
+    <div class="section-header">
+      <div class="section-icon ecom">🛒</div>
+      <h2>二、电商运营：Agentic Commerce 时代，<wbr><span class="highlight amber">店铺自己会卖货</span></h2>
+    </div>
+    <div class="section-subtitle">平台协议标准化 + Agent 自动卖货，流量入口彻底变了</div>
+
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="number purple">3-5万亿</div>
+        <div class="label">Agentic Commerce 2030 年全球交易额</div>
+        <div class="source">McKinsey / TMO Group</div>
+      </div>
+      <div class="data-card">
+        <div class="number amber">11×</div>
+        <div class="label">Shopify AI 驱动订单量增长（2025-01 → 2026-03）</div>
+        <div class="source">Shopify / 腾讯新闻</div>
+      </div>
+      <div class="data-card">
+        <div class="number green">+90%</div>
+        <div class="label">商品上架速度提升（京东京点点）</div>
+        <div class="source">艾媒 / 京东 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number red">+29%</div>
+        <div class="label">转化率提升（NIKE/Adidas/海澜之家等）</div>
+        <div class="source">艾媒 / 京东 2026</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>协议标准化：AI 购物有了「通用语言」</h3>
+      <ul>
+        <li>OpenAI <strong>ACP 协议</strong>（2025-09）：Etsy、Shopify 率先接入</li>
+        <li>Google <strong>UCP 协议</strong>（2026-01）：Shopify 联合发起，Walmart、Target、Wayfair 等 20+ 零售巨头背书</li>
+        <li>2026-04：Amazon、Meta、Microsoft、Salesforce、Stripe 加入 UCP 委员会</li>
+        <li>Shopify <strong>Agentic Storefronts</strong>（2026-03）默认开启，商品自动同步 ChatGPT / Copilot / Gemini</li>
+        <li>沃尔玛：AI 渠道驱动 2025 假日季约 <strong>20% 零售销售额</strong>（约 2620 亿美元），时尚开发周期缩短多达 18 周，客服时效 +40%</li>
+        <li>京东「京点点 Oxygen Vision」：一键生成静态图 / 模特图 / 短视频，数字人直播 7×24 免费</li>
+      </ul>
+      <div class="card-insight">
+        <p>💡 <strong>大白话解读：</strong>以后用户不用打开 App 搜，直接跟 AI 说「帮我买双跑步鞋」，AI 自己比价、下单。Shopify 已把店铺默认同步到各大 AI 助手，京东数字人直播免费 7×24 播。<br>👉 <strong>谁先接入协议，谁先吃到 AI 流量。</strong></p>
+      </div>
+    </div>
+
+    <div class="report-image">
+      <img src="report-images/ecommerce.png" alt="Agentic Commerce" loading="lazy">
+      <div class="caption">🛒 电商运营配图：购物车沿协议管道自动流转</div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: Supply Chain ─── -->
+  <section id="supplychain" class="section">
+    <div class="section-header">
+      <div class="section-icon supply">📦</div>
+      <h2>三、供应链维度：库存成本降 20-35%，<wbr><span class="highlight cyan">靠的是「自主编排」</span></h2>
+    </div>
+    <div class="section-subtitle">AI Agent 成为采购 / 仓储 / 配送的「自动驾驶」层</div>
+
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="number green">↓20-35%</div>
+        <div class="label">库存持有成本降幅（AI 需求预测）</div>
+        <div class="source">McKinsey 供应链 AI 报告 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number purple">$20B</div>
+        <div class="label">2026 年 AI-in-supply-chain 市场规模</div>
+        <div class="source">mefai</div>
+      </div>
+      <div class="data-card">
+        <div class="number amber">$47M</div>
+        <div class="label">单一经销商削减的过剩库存（美国汽车业）</div>
+        <div class="source">mefai</div>
+      </div>
+      <div class="data-card">
+        <div class="number cyan">60-80%</div>
+        <div class="label">人工干预减少比例</div>
+        <div class="source">McKinsey</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>AI Agent 如何重构供应链？</h3>
+      <ul>
+        <li>麦肯锡供应链 AI 报告 2026：AI Agent 通过需求预测将<strong>库存持有成本降 20-35%</strong>，预测准确率提升 15-25 个百分点</li>
+        <li>美国汽车分销商用<strong>周度 ML 预测</strong>替代季度 Excel，削减 <strong>4700 万美元</strong>过剩库存</li>
+        <li>AI Agent 可作采购 / 仓储 / 配送的<strong>自主编排层</strong>，实时重规划运输与库存</li>
+        <li>国内超 <strong>35%</strong> 中大型制造 / 物流 / 商贸企业已落地完整自治供应链 AI 系统（来源：10100 / McKinsey 行业数据，2026-05）</li>
+      </ul>
+      <div class="card-insight">
+        <p>💡 <strong>大白话解读：</strong>以前靠人拍脑袋补货，现在 Agent 实时看销量、天气、物流，自己决定补多少、走哪条线。美国一家汽车经销商用周度预测替代 Excel，直接砍掉 4700 万美元积压库存。<br>👉 <strong>这不是「降本增效」口号，是实打实省下的钱。</strong></p>
+      </div>
+    </div>
+
+    <div class="report-image">
+      <img src="report-images/supplychain.png" alt="供应链自治" loading="lazy">
+      <div class="caption">📦 供应链配图：仓库 + AI 数据仪表盘 + 下降的库存优化曲线</div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: Production ─── -->
+  <section id="production" class="section">
+    <div class="section-header">
+      <div class="section-icon prod">🏭</div>
+      <h2>四、生产维度：从「人肉操作」到「意图指令」，<wbr><span class="highlight red">上架快 90%</span></h2>
+    </div>
+    <div class="section-subtitle">商品从设计到上架，全链路被 AI 压缩</div>
+
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="number green">+90%</div>
+        <div class="label">商品上架速度提升</div>
+        <div class="source">艾媒 / 京东 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number purple">29万+</div>
+        <div class="label">1688 平台每天用 AI 产品的商家数</div>
+        <div class="source">长桥 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="number cyan">45%</div>
+        <div class="label">空客用生成式 AI 实现的零件减重幅度</div>
+        <div class="source">mefai</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>全链路 AI 压缩，从设计到上架</h3>
+      <ul>
+        <li>商品素材生产自动化：京东「京点点」把<strong>数周拍摄压缩到几天</strong></li>
+        <li>空客用生成式 AI 把零件设计<strong>轻 45%</strong>（跨行业参考，说明 AI 在设计端的提效潜力）</li>
+        <li>1688 平台每天 <strong>29 万+</strong> 商家用 AI 产品，从「人肉操作」到「意图指令」</li>
+        <li>Agent 从「人机协同」向「<strong>全自主闭环</strong>」演进，预计 2027 年内具备「设定目标 → 自主拆解 → 执行 → 反馈 → 优化」闭环</li>
+      </ul>
+      <div class="card-insight">
+        <p>💡 <strong>大白话解读：</strong>以前拍一套商品图要租棚、请模特、排期几周；现在京东「京点点」一键生成图+视频，几天搞定。1688 上每天 29 万商家已经用 AI 下指令做货。<br>👉 到 <strong>2027 年</strong>，Agent 可能自己定目标、自己干、自己复盘——人只管「提需求」。</p>
+      </div>
+    </div>
+
+    <div class="report-image">
+      <img src="report-images/production.png" alt="生产提速" loading="lazy">
+      <div class="caption">🏭 生产维度配图：设计稿→秒变成品，全链路 AI 提速</div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5: Action Items ─── -->
+  <section id="actions" class="section">
+    <div class="section-header">
+      <div class="section-icon action">✅</div>
+      <h2>给电商人 / 品牌方的 <span style="color:#059669;">3 条行动建议</span></h2>
+    </div>
+
+    <div class="action-list">
+      <div class="action-item">
+        <div class="action-number">1</div>
+        <div>
+          <h3>立刻做 AEO 基建</h3>
+          <p>把商品结构化数据（product schema / product feed / 品牌知识库）补齐，别让 AI 在回答时直接推了竞品。这是 2026 年品牌的新必修课，先做先赢。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-number">2</div>
+        <div>
+          <h3>接入主流协议</h3>
+          <p>盯紧 Shopify Agentic Storefronts、Google UCP / OpenAI ACP，让店铺能被 AI 助手直接调用。AI 流量入口正在形成，谁先接入谁先受益。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-number">3</div>
+        <div>
+          <h3>用 Agent 提效供应链与素材</h3>
+          <p>上架慢、库存高的，先上需求预测和一键素材工具——省下的都是纯利润。从京东京点点到 1688 AI，工具已经就位，关键在于行动。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center; padding:32px; background:linear-gradient(135deg,#f0fdf4,#ecfdf5); border-color:#a7f3d0;">
+      <p style="font-size:16px; color:#065f46; font-weight:500;">
+        你的行业被 Agent 影响了吗？
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── SOURCES ─── -->
+  <section id="sources" class="sources-section">
+    <h3>📚 资料来源</h3>
+    <p style="color:var(--text-secondary); font-size:14px; margin-bottom:16px;">本报告所有数据均来自以下权威来源，已标注出处位置：</p>
+    <div class="source-tags">
+      <span class="source-tag">McKinsey & Company</span>
+      <span class="source-tag">Shopify</span>
+      <span class="source-tag">TMO Group</span>
+      <span class="source-tag">亿邦动力</span>
+      <span class="source-tag">京东 / 艾媒咨询</span>
+      <span class="source-tag">1688 / 长桥</span>
+      <span class="source-tag">腾讯新闻</span>
+      <span class="source-tag">mefai</span>
+      <span class="source-tag">Accio</span>
+      <span class="source-tag">新浪财经</span>
+      <span class="source-tag">10100</span>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <p>AI Agent 电商行业影响报告 · 2026 年 7 月</p>
+    <p style="margin-top:4px;">数据截至 2026 年 7 月 · 仅供行业参考</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
